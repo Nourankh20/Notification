@@ -33,7 +33,7 @@ export class AppService {
 
   orderCreated(to:string, stripeId:string){
     let text = `Your order has been confirmed! Order no. ${stripeId}.`;
-    return sendMail(to,'Order Confirmed!',text,text);;
+    return 5;
   }
   
 }
