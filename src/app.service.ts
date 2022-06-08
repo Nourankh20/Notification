@@ -15,10 +15,12 @@ async function sendMail(to:string, subject:string, text:string,  html:string,) {
     .then((response) => {
       console.log(response[0].statusCode)
       console.log(response[0].headers)
+      return response;
     })
     .catch((error) => {
       console.error(error)
     })
+    
 
 }
 @Injectable()
@@ -29,8 +31,7 @@ export class AppService {
 
   orderCreated(to:string, stripeId:string){
     let text = `Your order has been confirmed! Order no. ${stripeId}.`;
-    sendMail(to,'Order Confirmed!',text,text);
-    return "hello";
+    return sendMail(to,'Order Confirmed!',text,text);;
   }
   
 }
