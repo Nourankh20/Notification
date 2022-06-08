@@ -1,7 +1,7 @@
 {
     "version": 2,
     "env": {
-        "sendgrid_api_key" : "sendgrid_api_key" 
+        "sendgrid_api_key" : "@sendgrid_api_key" 
     },
     "builds": [
         {
