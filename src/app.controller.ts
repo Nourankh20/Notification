@@ -12,6 +12,6 @@ export class AppController {
 
   @Get('/notify')
   sendMail() {
-    return this.appService.orderCreated("to", "stripeId",);
+    return this.appService.orderCreated("nourankh201617@gmail.com", "stripeId",);
   }
 }
