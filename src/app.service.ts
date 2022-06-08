@@ -10,7 +10,7 @@ async function sendMail(to:string, subject:string, text:string,  html:string,) {
     html: html
   }
 
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  sgMail.setApiKey(process.env.sendgrid_api_key);
   await sgMail
     .send(msg)
     .then((response) => {
