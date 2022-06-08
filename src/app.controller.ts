@@ -5,7 +5,12 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Post()
+  @Get()
+  getHello(): string {
+    return this.appService.getHello();
+  }
+
+  @Post('/notify')
   sendMail(to:string, stripeId:string) {
     return this.appService.orderCreated(to, stripeId,);
   }
