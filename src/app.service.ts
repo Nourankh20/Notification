@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 const sgMail = require('@sendgrid/mail')
+require('dotenv').config();
 
 async function sendMail(to:string, subject:string, text:string,  html:string,) {
   const msg = {
