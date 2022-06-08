@@ -32,7 +32,7 @@ export class AppService {
 
   orderCreated(to:string, stripeId:string){
     let text = `Your order has been confirmed! Order no. ${stripeId}.`;
-    return process.env.SENDGRID_API_KEY;
+    return process.env.sendgrid_api_key;
     return sendMail(to,'Order Confirmed!',text,text);;
   }
   
