@@ -29,7 +29,6 @@ async function sendMail(to:string, subject:string, text:string,  html:string,) {
 @Injectable()
 export class AppService {
   getHello(): string {
-    console.log("be5 yzizo");
     return 'Hello World!';
   }
 
