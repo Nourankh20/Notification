@@ -10,8 +10,8 @@ export class AppController {
     return this.appService.getHello();
   }
 
-  @Post('/notify')
-  sendMail(to:string, stripeId:string) {
-    return this.appService.orderCreated(to, stripeId,);
+  @Get('/notify')
+  sendMail() {
+    return this.appService.orderCreated("to", "stripeId",);
   }
 }
