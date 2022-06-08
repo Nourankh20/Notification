@@ -20,6 +20,7 @@ async function sendMail(to:string, subject:string, text:string,  html:string,) {
     })
     .catch((error) => {
       console.error(error)
+      return error
     })
     
 
@@ -32,7 +33,6 @@ export class AppService {
 
   orderCreated(to:string, stripeId:string){
     let text = `Your order has been confirmed! Order no. ${stripeId}.`;
-    return process.env.sendgrid_api_keyy;
     return sendMail(to,'Order Confirmed!',text,text);;
   }
   
