@@ -9,13 +9,14 @@ async function sendMail(to:string, subject:string, text:string,  html:string,) {
     text: text,
     html: html
   }
+
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   sgMail
     .send(msg)
     .then((response) => {
       console.log(response[0].statusCode)
       console.log(response[0].headers)
-      return response;
+      return response[0].statusCode;
     })
     .catch((error) => {
       console.error(error)
@@ -31,6 +32,7 @@ export class AppService {
 
   orderCreated(to:string, stripeId:string){
     let text = `Your order has been confirmed! Order no. ${stripeId}.`;
+    return process.env.SENDGRID_API_KEY;
     return sendMail(to,'Order Confirmed!',text,text);;
   }
   
