@@ -6,28 +6,28 @@ const { Consumer } = require('sqs-consumer');
 
 
 
-async function sendMail(body : any) {
-  
-  const z = await body.Message
-  console.log(z)
-  const y = await JSON.parse(z);
-  console.log(y.header.event);
-  const f = await y.header.event.name
-  const msg =  {
-    to: y.header.event.email, // Change to your recipient
+async function sendMail(body: any) {
+
+  const z = await body
+  //console.log(z)
+  // const y = await JSON.parse(z);
+  // console.log(y.header.event);
+  // const f = await y.header.event.name
+  const msg = {
+    to: z.email, // Change to your recipient
     from: 'mk.elbaz9248@gmail.com', // Change to your verified sender
-    subject: `${f} order`,
-    text: `Your order has been confirmed! Order no. ${y.header.event.orderNo}.`,
-    html: `Your order has been confirmed! Order no. ${y.header.event.orderNo}.`,
-    
+    subject: `${z.item} order`,
+    text: `Your order has been confirmed! Order no. ${z.item}.`,
+    html: `Your order has been confirmed! Order no. ${z.item}.`,
+
   }
   console.log(msg);
-  
+
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   sgMail
     .send(msg)
     .then((response) => {
-      
+
       console.log(response[0].statusCode)
       console.log(response[0].headers)
     })
@@ -54,8 +54,8 @@ export class AppService {
   }
 
 
-  consume() {
-    
+   async consume() {
+
     Consumer.create({
       queueUrl: process.env.NOTIFICATION_SQS_K,
       handleMessage: async (message) => {
@@ -70,22 +70,24 @@ export class AppService {
           ],
           QueueUrl: process.env.NOTIFICATION_SQS_K /* required */
         };
-
-        const x =JSON.parse( message.Body.Message)
-        console.log(x)
-        // sendMail(JSON.parse(x))
-        this.sqs.deleteMessageBatch(params, function(err, data) {
+        console.log("aaaaaaaaaaa3333333333333seveniaaaaaaaaaaaaa");
+        var x = await JSON.parse(message.Body);
+        var y = await JSON.parse(x.Message);
+        
+        //console.log(y);
+        sendMail(y)
+        this.sqs.deleteMessageBatch(params, function (err, data) {
           if (err) console.log(err, err.stack); // an error occurred
-          else     console.log(data);           // successful response
+          else console.log(data);           // successful response
         });
       },
     }).start()
 
   }
 
-  orderCreated(to:string, stripeId:string){
+  orderCreated(to: string, stripeId: string) {
     let text = `Your order has been confirmed! Order no. ${stripeId}.`;
     // sendMail(to,'Order Confirmed!',text,text);
   }
-  
+
 }
