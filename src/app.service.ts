@@ -71,9 +71,9 @@ export class AppService {
           QueueUrl: process.env.NOTIFICATION_SQS_K /* required */
         };
 
-        const x = message.Body
-        // console.log(x)
-        sendMail(JSON.parse(x))
+        const x =JSON.parse( message.Body.Message)
+        console.log(x)
+        // sendMail(JSON.parse(x))
         this.sqs.deleteMessageBatch(params, function(err, data) {
           if (err) console.log(err, err.stack); // an error occurred
           else     console.log(data);           // successful response
