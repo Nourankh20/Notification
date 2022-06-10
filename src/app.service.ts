@@ -32,6 +32,7 @@ async function sendMail(body: any) {
 
       console.log(response[0].statusCode)
       console.log(response[0].headers)
+      return response[0].statusCode;
     })
     .catch((error) => {
       console.error(error)
@@ -79,11 +80,12 @@ export class AppService {
         var y = await JSON.parse(x.Message);
         
         //console.log(y);
-        sendMail(y)
+        
         this.sqs.deleteMessageBatch(params, function (err, data) {
           if (err) console.log(err, err.stack); // an error occurred
           else console.log(data);           // successful response
         });
+        return sendMail(y);
       },
     }).start()
 
