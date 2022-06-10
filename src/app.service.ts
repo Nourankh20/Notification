@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 const sgMail = require('@sendgrid/mail')
-import { config } from '../config';
+// import { config } from '../config';
 import * as AWS from 'aws-sdk';
 const { Consumer } = require('sqs-consumer');
 
@@ -39,15 +39,15 @@ async function sendMail(body : any) {
 @Injectable()
 export class AppService {
   params = {
-    QueueUrl: config.NOTIFICATION_SQS,
+    QueueUrl: process.env.NOTIFICATION_SQS_K,
   };
   private sqs;
   private sns;
   constructor() {
     AWS.config.update({
       region: 'us-east-1',
-      accessKeyId: config.ACCESS_KEY_ID,
-      secretAccessKey: config.SECRET_ACCESS_KEY,
+      accessKeyId: process.env.ACCESS_KEY_ID_K,
+      secretAccessKey: process.env.SECRET_ACCESS_KEY_K,
     });
     this.sqs = new AWS.SQS({ apiVersion: '2012-11-05' });
     this.sns = new AWS.SNS({ apiVersion: '2010-03-31' });
@@ -57,7 +57,7 @@ export class AppService {
   consume() {
     
     Consumer.create({
-      queueUrl: config.NOTIFICATION_SQS,
+      queueUrl: process.env.NOTIFICATION_SQS_K,
       handleMessage: async (message) => {
 
         var params = {
@@ -68,7 +68,7 @@ export class AppService {
             },
             /* more items */
           ],
-          QueueUrl: config.NOTIFICATION_SQS /* required */
+          QueueUrl: process.env.NOTIFICATION_SQS_K /* required */
         };
 
         const x = message.Body
