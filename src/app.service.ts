@@ -6,6 +6,8 @@ const { Consumer } = require('sqs-consumer');
 
 
 
+
+
 async function sendMail(body: any) {
 
   const z = await body
@@ -53,9 +55,11 @@ export class AppService {
     this.sns = new AWS.SNS({ apiVersion: '2010-03-31' });
   }
 
+  getHello(): string {
+    return 'Hello World!';
+  }
 
    async consume() {
-
     Consumer.create({
       queueUrl: process.env.NOTIFICATION_SQS_K,
       handleMessage: async (message) => {
