@@ -74,7 +74,7 @@ export class AppService {
           ],
           QueueUrl: process.env.NOTIFICATION_SQS_K /* required */
         };
-        console.log("aaaaaaaaaaa3333333333333seveniaaaaaaaaaaaaa");
+        console.log("consumer");
         var x = await JSON.parse(message.Body);
         var y = await JSON.parse(x.Message);
         
