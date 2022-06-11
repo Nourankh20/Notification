@@ -59,8 +59,8 @@ export class AppService {
     return 'Hello World!';
   }
 
-   async consume() {
-     console.log("consumer start")
+  async consume() {
+    console.log("consumer start")
     Consumer.create({
       queueUrl: process.env.NOTIFICATION_SQS_K,
       handleMessage: async (message) => {
