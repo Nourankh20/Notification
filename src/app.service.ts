@@ -19,8 +19,8 @@ async function sendMail(body: any) {
     to: z.email, // Change to your recipient
     from: 'mk.elbaz9248@gmail.com', // Change to your verified sender
     subject: `${z.item} order`,
-    text: `Your order has been confirmed! Order no. ${z.item}.`,
-    html: `Your order has been confirmed! Order no. ${z.item}.`,
+    text: `Your order has been confirmed! Order no. ${z._id}.`,
+    html: `Your order has been confirmed! Order no. ${z._id}.`,
 
   }
   console.log(msg);
@@ -80,7 +80,7 @@ export class AppService {
         var x = await JSON.parse(message.Body);
         var y = await JSON.parse(x.Message);
         
-        //console.log(y);
+        console.log(y);
         sendMail(y);
         this.sqs.deleteMessageBatch(params, function (err, data) {
           if (err) console.log(err, err.stack); // an error occurred
