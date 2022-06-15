@@ -26,7 +26,7 @@ async function sendMail(body: any) {
   console.log(msg);
 
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  sgMail
+  await sgMail
     .send(msg)
     .then((response) => {
 
@@ -81,7 +81,7 @@ export class AppService {
         var y = await JSON.parse(x.Message);
         
         console.log(y);
-        sendMail(y);
+        await sendMail(y);
         this.sqs.deleteMessageBatch(params, function (err, data) {
           if (err) console.log(err, err.stack); // an error occurred
           else console.log("deleted ",data);           // successful response
